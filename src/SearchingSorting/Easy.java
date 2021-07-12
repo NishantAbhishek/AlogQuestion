@@ -1,18 +1,14 @@
 package SearchingSorting;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Easy {
     public static void main(String[] args) {
-        long[] val = {1, 3, 5, 5, 5, 5, 67, 123, 125};
-
-        ArrayList<Long> values = find(val,9,5);
-
-        System.out.println(":-"+values.get(0));
-        System.out.println(":-"+values.get(1));
+        System.out.println(middle(12,9,8));
     }
 
-    public static ArrayList<Long> find(long[] arr, int n, int x)
+    private static ArrayList<Long> find(long[] arr, int n, int x)
     {
         ArrayList<Long> list = new ArrayList<>();
         list.add(0,(long)-1);
@@ -32,7 +28,7 @@ public class Easy {
         return list;
     }
 
-    ArrayList<Integer> valueEqualToIndex(int arr[], int n) {
+    private ArrayList<Integer> valueEqualToIndex(int arr[], int n) {
         ArrayList<Integer> list = new ArrayList<>();
 
         for(int i = 0;i<arr.length;i++){
@@ -42,7 +38,7 @@ public class Easy {
         }
         return list;
     }
-    public int search(int[] nums, int target) {
+    private int search(int[] nums, int target) {
         for(int i = 0;i<nums.length;i++){
             if(target==nums[i]){
                 return i;
@@ -50,4 +46,28 @@ public class Easy {
         }
         return -1;
     }
+
+    private static int countSquares(int N) {
+        if(N==0||N==1){
+            return 0;
+        }
+
+        for(int i = 0;i<N/2;i++){
+            if(i*i>=N){
+                return i-1;
+            }
+        }
+        return 0;
+    }
+
+    static int middle(int A, int B, int C){
+        int[] arr = new int[3];
+        arr[0] = A;
+        arr[1] = B;
+        arr[2] = C;
+
+        Arrays.sort(arr);
+        return arr[1];
+    }
+
 }
