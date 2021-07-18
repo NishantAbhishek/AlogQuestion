@@ -2,34 +2,75 @@ package Array;
 
 public class Medium {
     public static void main(String[] args) {
-        System.out.println(minJumps(new int[]{1, 4, 3, 2, 6,2,3,1,2,7,3,4,5,2}));
+        System.out.println(findDuplicate(new int[]{1,3,4,2,3}));
     }
+
     static int minJumps(int[] arr){
-        boolean reached = false;
+        int maxReachIndex = 0;
+        int nextIndex = -1;
         int countStep = 0;
-        int index = 0;
-        int indexToMove = 0;
-        int moveStep = 0;
-        while (!reached){
-            moveStep = arr[index];
-            int nextStep = -1;
-            System.out.println(arr[index]);
-            for(int i = index+1;i<=index+moveStep;i++){
-                if(i>=arr.length){
+        int currentIndex = 0;
+
+        if(arr.length<=1){
+            return -1;
+        }
+
+        if(arr[0]==0){
+            return -1;
+        }
+
+        for (currentIndex = 0; currentIndex < arr.length;) {
+            System.out.println(arr[currentIndex]);
+            int currentMaxReach = arr[currentIndex]+currentIndex;
+
+            System.out.println("Max reach:-"+currentMaxReach);
+            if(currentMaxReach>=arr.length-1) {
+                countStep++;
+                System.out.println("Breaking");
+                break;
+            }
+
+            currentIndex = currentIndex+1;
+            for(;currentIndex<=currentMaxReach;currentIndex++){
+                if(currentIndex>=arr.length){
                     break;
                 }else{
-                    if(arr[i]!=0 && arr[i]>nextStep){
-                        nextStep = arr[i];
-                        indexToMove = i;
+                    System.out.println("Comparing value:- "+arr[currentIndex]+
+                            " MaxReach Value:- "+(arr[currentIndex] + currentIndex)+" maxReachIndex "+maxReachIndex);
+                    if(maxReachIndex < arr[currentIndex] + currentIndex && arr[currentIndex]!=0){
+                        System.out.println("--In--");
+                        maxReachIndex = arr[currentIndex]+currentIndex;
+                        nextIndex = currentIndex;
                     }
                 }
             }
-            index = indexToMove;
-            countStep++;
-            if(index>=arr.length-1){
-                reached = true;
+
+            if(maxReachIndex==0){
+                return -1;
             }
+            currentIndex = nextIndex;
+            maxReachIndex = 0;
+            countStep++;
         }
         return countStep;
     }
+
+    public static int findDuplicate(int[] nums) {
+        boolean found = false;
+
+        for(int i = 0;i<nums.length;i++){
+            int value = nums[i];
+            for(int k =i; k<nums.length; k++){
+                if(value==nums[k]){
+                    if(found==true){
+                        return value;
+                    }
+                    found = true;
+                }
+            }
+            found = false;
+        }
+        return -1;
+    }
+
 }
